@@ -1,0 +1,25 @@
+---
+# TODO: Use supervisor instead of direct shell
+
+- name: App
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+    - python-apt
+    - build-essential
+    - curl
+
+- name: Copy app
+  become: yes
+  copy: 
+    src : files
+    dest: /var/www/
+
+- name: Start app_one
+  shell: nohup python /var/www/files/app_one.py >/dev/null 2>&1 &
+
+- name: Start app_two
+  shell: nohup python /var/www/files/app_two.py >/dev/null 2>&1 &
