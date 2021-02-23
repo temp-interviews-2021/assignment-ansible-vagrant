@@ -6,6 +6,14 @@ socket		= /var/run/mysqld/mysqld.sock
 socket		= /var/run/mysqld/mysqld.sock
 nice		= 0
 
+[client]
+user		= {{ db_user }}
+password	= {{ db_password }}
+
+[mysql]
+user		= {{ db_user }}
+password	= {{ db_password }}
+
 [mysqld]
 user		= mysql
 pid-file	= /var/run/mysqld/mysqld.pid
