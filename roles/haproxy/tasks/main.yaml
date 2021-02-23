@@ -1,0 +1,18 @@
+---
+
+- name: Install haproxy
+  become: yes
+  apt:
+    name: haproxy
+    state: latest
+    update_cache: yes
+
+- name: Copy config
+  become: yes
+  copy: 
+    src : templates/default.conf
+    dest: /etc/haproxy/haproxy.cfg
+  notify: restart haproxy
+
+- name: Start haproxy
+  service: name=haproxy state=started enabled=yes

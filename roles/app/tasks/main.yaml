@@ -4,13 +4,11 @@
 - name: App
   become: yes
   apt:
-    name: "{{ item }}"
-    state: latest
-    update_cache: yes
-  with_items:
-    - python-apt
-    - build-essential
-    - curl
+    pkg:
+      - python-apt
+      - build-essential
+      - curl
+    state: present
 
 - name: Copy app
   become: yes

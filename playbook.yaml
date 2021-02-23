@@ -1,0 +1,21 @@
+
+---
+
+- hosts: App
+  become: yes
+  roles:
+  - nginx
+  - app
+
+- hosts: LB
+  become: yes
+  roles:
+  - haproxy
+
+# - hosts: DB
+#   become: yes
+#   roles:
+#   - mysql
+
+# PYTHONUNBUFFERED=1 ANSIBLE_FORCE_COLOR=true ANSIBLE_HOST_KEY_CHECKING=false ANSIBLE_SSH_ARGS='-o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes -o ControlMaster=auto -o ControlPersist=60s' ansible-playbook --connection=ssh --timeout=30 --limit="App" --inventory-file=/Users/pranavkpr/Downloads/temp-interviews/assignment-ansible-vagrant/.vagrant/provisioners/ansible/inventory --become -v playbook.yaml
+# PYTHONUNBUFFERED=1 ANSIBLE_FORCE_COLOR=true ANSIBLE_HOST_KEY_CHECKING=false ANSIBLE_SSH_ARGS='-o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes -o ControlMaster=auto -o ControlPersist=60s' ansible-playbook --connection=ssh --timeout=30 --limit="LB" --inventory-file=/Users/pranavkpr/Downloads/temp-interviews/assignment-ansible-vagrant/.vagrant/provisioners/ansible/inventory --become -v playbook.yaml
