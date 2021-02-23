@@ -12,7 +12,12 @@ A simple deployment which deploys two python apps served via nginx behind haprox
 
 Post which the following routes should work:
 
-	http://localhost/a
-	http://localhost/b
-	http://localhost/c
-	http://localhost/d
+	http://localhost/xyz
+	http://localhost/pqrs
+	http://localhost/abc
+	http://localhost/mno
+
+
+<!-- ## TODO: -->
+<!-- use variables instead of hardcoded values in paths, etc. -->
+<!-- use supervisor to run the apps instead of nohup. -->

@@ -8,12 +8,12 @@ port = 8092
 class myHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
-        if self.path == '/c':
+        if self.path == '/abc':
             self.send_response(200)
             self.send_header('Content-type','text/html')
             self.end_headers()
             self.wfile.write("<b> This is app_two - c !</b>")
-        elif self.path == '/d':
+        elif self.path == '/mno':
             self.send_response(200)
             self.send_header('Content-type','text/html')
             self.end_headers()
