@@ -1,0 +1,78 @@
+---
+# When in doubt, use brute force - Ken Thompson.
+
+- name: Install mysql
+  become: yes
+  apt:
+    pkg:
+      - python-mysqldb
+      - mysql-server
+      - python-pkg-resources
+      - python-pymysql
+      - python3-pip
+    state: present
+    update_cache: yes
+
+- pip:
+    name: PyMySQL
+
+- name: Start the MySQL service
+  become: yes
+  service: 
+    name: mysql 
+    state: started
+    enabled: true
+
+- name: Copy SQL config file
+  become: yes
+  copy:
+    src: templates/my.cnf.j2
+    dest: /etc/mysql/my.cnf
+  notify: restart mysql
+
+- name: Create sys user
+  become: yes
+  mysql_user: 
+    name: "{{ db_user }}" 
+    host: "{{ item }}" 
+    password: "{{ db_password }}"
+    login_user: "{{ db_user }}"
+    login_password: "{{ db_password }}"
+    check_implicit_admin: yes
+    priv: "*.*:ALL,GRANT"
+  with_items: 
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - 10.0.0.11
+    - 10.0.0.12
+    - 10.0.0.13
+    - ::1
+    - localhost 
+
+- name: Create users
+  become: yes
+  mysql_user: 
+    name: "{{ item.user }}" 
+    host: "{{ item.ips }}" 
+    password: "{{ item.pass }}"
+    login_user: "{{ db_user }}"
+    login_password: "{{ db_password }}"
+    check_implicit_admin: yes
+    priv: "{{ item.name }}.*:ALL,GRANT"
+  with_items: 
+    - { name: "{{ app_one_db }}", user: "{{ app_one }}", pass: "{{ app_one_password }}", ips: "{{ whitelisted_ips }}" }
+    - { name: "{{ app_two_db }}", user: "{{ app_two }}", pass: "{{ app_two_password }}", ips: "{{ whitelisted_ips }}" }
+
+- name: Create databases
+  mysql_db:
+    name: "{{ item }}"
+    state: present
+    login_user: "{{ db_user }}"
+    login_password: "{{ db_password }}"
+  register: db_created
+  with_items:
+    - "db_a"
+    - "db_b"
+
+
+

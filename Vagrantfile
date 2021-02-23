@@ -20,12 +20,12 @@ Vagrant.configure(2) do |config|
         end
     end
 
-  # config.vm.define :DB do |cfg|
-  #       cfg.vm.network :private_network, ip: "10.0.0.31"
-  #       cfg.vm.provider :virtualbox do |v|
-  #           v.name = "DB"
-  #       end
-  #   end
+  config.vm.define :DB do |cfg|
+        cfg.vm.network :private_network, ip: "10.0.0.31"
+        cfg.vm.provider :virtualbox do |v|
+            v.name = "DB"
+        end
+    end
 
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"

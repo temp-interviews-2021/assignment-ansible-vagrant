@@ -11,7 +11,8 @@ A simple deployment which deploys two python apps served via nginx behind haprox
 	vagrant up
 
 Post which the following routes should work:
-	localhost/a
-	localhost/b
-	localhost/c
-	localhost/d
+
+	http://localhost/a
+	http://localhost/b
+	http://localhost/c
+	http://localhost/d

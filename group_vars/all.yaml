@@ -1,2 +1,14 @@
 ---
 
+db_user: root
+db_password: toor
+
+whitelisted_ips : "10.0.0.21"
+
+app_one_db: app_one_db
+app_one: app_one
+app_one_password: app-1-pass
+
+app_two_db: app_two_db
+app_two: app_two
+app_two_password: app-2-pass
